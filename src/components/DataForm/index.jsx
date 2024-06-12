@@ -139,12 +139,10 @@ const ReportACaseForm = () => {
 
 			formData.append("trackingId", trackingId);
 
-			for (let [key, value] of formData.entries()) {
-				console.log(`${key}: ${value}`);
-			}
-			console.log(formRef.current);
-			console.log(formData);
-			console.log(emailTemplate);
+			// for (let [key, value] of formData.entries()) {
+			// 	console.log(`${key}: ${value}`);
+			// }
+
 			emailjs.send("service_8nz54qg", "template_kxksu27", emailTemplate).then(
 				() => {
 					console.log("SUCCESS!");
@@ -164,7 +162,7 @@ const ReportACaseForm = () => {
 			setSubmitting(false);
 			// console.error("Error uploading image to Cloudinary:", error);
 		}
-		console.log("added");
+		// console.log("added");
 	};
 
 	const formik = useFormik({

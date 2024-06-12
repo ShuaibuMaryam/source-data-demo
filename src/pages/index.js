@@ -12,19 +12,9 @@ const Home = ({}) => {
 		<>
 			<Head>
 				<title>Source data</title>
-				<meta
-					name="description"
-					content="Discover Tanta's expert IT consulting and innovative software
-                development services, tailored to elevate your business and drive digital transformation."
-				/>
+				<meta name="description" content="" />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<meta
-					name="keywords"
-					content="tanta innovative, Tanta, Tanta Innovative Limited, Mobile app, IT consulting, Software development,
-            				Custom software, Digital transformation, Cloud computing, Cybersecurity, Data analytics, Business intelligence,
-          					Project management, Web development, Mobile app development, UI/UX design, E-commerce, Enterprise solutions,
-          					IT support, Outsourcing, IT consulting services"
-				/>
+				<meta name="keywords" content="" />
 				<meta name="author" content="Tanta Innovative Limited" />
 				<meta name="robots" content="index, follow" />
 				<meta name="googlebot" content="index, follow" />

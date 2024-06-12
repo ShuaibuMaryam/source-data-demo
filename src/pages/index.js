@@ -1,6 +1,6 @@
 import Head from "next/head";
 import LandingLayout from "../layouts/landing.layout";
-import LandingPage from "../components/landingPage";
+import LandingPage from "../components/LandingPage";
 import { Box } from "@chakra-ui/react";
 /**
  *

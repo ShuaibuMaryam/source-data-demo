@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Navbar from "../components/navbar";
+// import Navbar from "../components/navbar";
 // import Footer from "./footer";
 import HeadData from "./headData";
 import { Box, Container } from "@chakra-ui/react";
-import Footer from "../components/footer";
-import SideNav from "../components/sideNav";
+// import Footer from "../components/footer";
+// import SideNav from "../components/sideNav";
 
 const LandingLayout = ({ children }) => {
 	const [isSidebarOpen, setSidebarOpen] = useState(false);

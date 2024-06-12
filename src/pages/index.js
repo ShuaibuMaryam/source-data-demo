@@ -11,7 +11,7 @@ const Home = ({}) => {
 	return (
 		<>
 			<Head>
-				<title>OHome| IT Consulting and Software Development Company</title>
+				<title>Source data</title>
 				<meta
 					name="description"
 					content="Discover Tanta's expert IT consulting and innovative software

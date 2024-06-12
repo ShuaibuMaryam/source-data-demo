@@ -41,6 +41,8 @@ import axios from "axios";
 const ReportACaseForm = () => {
 	emailjs.init("ZpqwFrjDl7cb5Zome");
 
+	// const [trackingId, setTrackingId] = useState();
+
 	// Reference to the form element
 	const formRef = useRef(null);
 
@@ -72,7 +74,10 @@ const ReportACaseForm = () => {
 		return uniqueNumber;
 	};
 
-	const tracking_id = generateUniqueNumber;
+	const trackingId = generateUniqueNumber();
+	// (() => {
+	// 	console.log("useEffect");
+	// })();
 	// const formdata = new FormData();
 
 	const [modalOpen, setModalOpen] = useState(false);
@@ -123,24 +128,24 @@ const ReportACaseForm = () => {
 				disability: values.disability,
 			});
 
-			console.log(values);
 			toggleModal();
-			resetForm();
-		} catch (error) {
-			toast.error("Something went wrong, please try again");
-			console.error(error);
-			setSubmitting(false);
-			// console.error("Error uploading image to Cloudinary:", error);
-		}
-		console.log("added");
 
-		const formData = new FormData(formRef.current);
+			var emailTemplate = {
+				name: values.name,
+				email: values.email,
+				trackingId: trackingId,
+			};
+			const formData = new FormData(formRef.current);
 
-		formData.append("tracking_id", tracking_id);
+			formData.append("trackingId", trackingId);
 
-		emailjs
-			.sendForm("service_8nz54qg", "template_kxksu27", formRef.current)
-			.then(
+			for (let [key, value] of formData.entries()) {
+				console.log(`${key}: ${value}`);
+			}
+			console.log(formRef.current);
+			console.log(formData);
+			console.log(emailTemplate);
+			emailjs.send("service_8nz54qg", "template_kxksu27", emailTemplate).then(
 				() => {
 					console.log("SUCCESS!");
 					console.log("message sent");
@@ -149,6 +154,17 @@ const ReportACaseForm = () => {
 					console.log("FAILED...", error.text);
 				}
 			);
+
+			console.log(values);
+
+			resetForm();
+		} catch (error) {
+			toast.error("Something went wrong, please try again");
+			console.error(error);
+			setSubmitting(false);
+			// console.error("Error uploading image to Cloudinary:", error);
+		}
+		console.log("added");
 	};
 
 	const formik = useFormik({
@@ -948,12 +964,7 @@ const ReportACaseForm = () => {
 							<Flex flexDir={"column"} gap={"2.5rem"}>
 								<Heading color={"green"}>Success!</Heading>
 								<Text>Your details have been submitted successfully</Text>
-								<Text>
-									Your tracking id is{" "}
-									<Text as={"span"} color={"green"}>
-										{generateUniqueNumber()}
-									</Text>
-								</Text>
+								<Text>Your tracking id has been sent to your email</Text>
 							</Flex>
 						</ModalBody>
 						<ModalFooter>

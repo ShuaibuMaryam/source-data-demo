@@ -35,10 +35,14 @@ import { toast } from "react-toastify";
 // import axiosInstance from "../../../utils/axios";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import emailjs from "emailjs-com";
 import axios from "axios";
 
 const ReportACaseForm = () => {
-	// emailjs.init("ZpqwFrjDl7cb5Zome");
+	emailjs.init("ZpqwFrjDl7cb5Zome");
+
+	// Reference to the form element
+	const formRef = useRef(null);
 
 	const validationSchema = Yup.object().shape({
 		name: Yup.string().required("Name is required"),
@@ -60,15 +64,15 @@ const ReportACaseForm = () => {
 		disability: Yup.string().required("This is a required field"),
 	});
 
-	function generateUniqueNumber() {
+	const generateUniqueNumber = () => {
 		const timestamp = Date.now();
 		const randomNum = Math.floor(Math.random() * 1_000_000);
 		const uniqueNumber = parseInt(timestamp.toString() + randomNum.toString());
 
 		return uniqueNumber;
-	}
+	};
 
-	// const tracking_id = generateUniqueNumber();
+	const tracking_id = generateUniqueNumber;
 	// const formdata = new FormData();
 
 	const [modalOpen, setModalOpen] = useState(false);
@@ -130,24 +134,21 @@ const ReportACaseForm = () => {
 		}
 		console.log("added");
 
-		// const formData = new FormData();
+		const formData = new FormData(formRef.current);
 
-		// Append Formik values to FormData
-		// Object.keys(values).forEach((key) => {
-		// 	formData.append(key, values[key]);
-		// });
+		formData.append("tracking_id", tracking_id);
 
-		// formData.append("tracking_id", tracking_id);
-
-		// emailjs.sendForm("service_8nz54qg", "template_kxksu27", formData).then(
-		// 	() => {
-		// 		console.log("SUCCESS!");
-		// 		console.log("message sent");
-		// 	},
-		// 	(error) => {
-		// 		console.log("FAILED...", error.text);
-		// 	}
-		// );
+		emailjs
+			.sendForm("service_8nz54qg", "template_kxksu27", formRef.current)
+			.then(
+				() => {
+					console.log("SUCCESS!");
+					console.log("message sent");
+				},
+				(error) => {
+					console.log("FAILED...", error.text);
+				}
+			);
 	};
 
 	const formik = useFormik({
@@ -206,7 +207,7 @@ const ReportACaseForm = () => {
 
 					{/*    /!* ADD FORM HERE *!/*/}
 
-					<form onSubmit={formik.handleSubmit}>
+					<form onSubmit={formik.handleSubmit} ref={formRef}>
 						{/*        /!* Name *!/*/}
 						<Flex direction={{ base: "column" }} gap={"1rem"} w={"100%"}>
 							{/* ----------First name--------- */}
